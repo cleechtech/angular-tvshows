@@ -21,12 +21,23 @@
     
     <!-- mainController -->
 	<div class="container main-frame" ng-app="TVPremieresApp" ng-controller="mainController" ng-init="init()">
-		<div class="search-box row-fluid form-inline"></div>
+		<div class="search-box row-fluid form-inline">
+		    <label>Standard filter:</label>
+		    <!-- ng-model binds input to $scope.filterText -->
+		    <input type="text" ng-model="filterText" />
+		    
+		    <label>Filter by genre</label>
+		    <!-- ng-options populates field with $scope.availableGenres array -->
+		    <select ng-model="genreFilter" ng-options="label for label in availableGenres">
+		        <option>All</option>
+		    </select>
+		</div>
         <div class="results-top"></div>
         <div class="results-container">
             <ul class="episode-list">
-                <!-- ng-repeat to dynamically create the list elements based on the data within $scope.results -->
-                <li ng-repeat="tvshow in results">
+                <!-- ng-repeat creates this element for every object in $scope.results array -->
+                <!-- show everything or apply built in angular filter. (documentation: http://docs.angularjs.org/api/ng.filter:filter) -->
+                <li ng-repeat="tvshow in results | filter: filterText">
                     <div class="row-fluid">
                         <div class="span3">
                             <img src="{{tvshow.episode.images.screen}}" />
@@ -40,6 +51,8 @@
                                     <i class="icon-thumbs-down"></i>
                                     {{tvshow.episode.ratings.hated}}
                                 </span>
+                                
+                                <!-- ng-class conditionally applies a class -->
                                 <span class="label label-important" ng-class="{'label-success': tvshow.episode.ratings.percentage >= 50}">
                                 <strong>%</strong>
                                 {{tvshow.episode.ratings.percentage}}
