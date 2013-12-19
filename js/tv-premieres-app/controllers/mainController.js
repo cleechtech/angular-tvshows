@@ -45,3 +45,62 @@ app.controller("mainController", function($scope, $http){
 
 });
 
+// declare custom filter 'isGenre'
+app.filter('isGenre', function(){
+    // input is provided by default, is all the data ng-repeat processes
+    // genre we pass to the filter
+    return function(input, genre){
+        if (typeof genre == 'undefined' || genre == null){
+            return input;
+        } else {
+            // find all shows that match genre
+            var out = [];
+            for (var a = 0; a < input.length; a++){
+                for(var b = 0; b < input[a].show.genres.length; b++){
+                    if(input[a].show.genres[b] == genre){
+                        out.push(input[a]);
+                    }
+                }
+            }
+        return out; // return array of shows
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

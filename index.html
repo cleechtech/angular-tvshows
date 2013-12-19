@@ -37,7 +37,7 @@
             <ul class="episode-list">
                 <!-- ng-repeat creates this element for every object in $scope.results array -->
                 <!-- show everything or apply built in angular filter. (documentation: http://docs.angularjs.org/api/ng.filter:filter) -->
-                <li ng-repeat="tvshow in results | filter: filterText">
+                <li ng-repeat="tvshow in results | filter: filterText | isGenre:genreFilter">
                     <div class="row-fluid">
                         <div class="span3">
                             <img src="{{tvshow.episode.images.screen}}" />
